@@ -56,4 +56,17 @@ It is a way to hide/obscure/jumble data, making it impossible for a third party 
      - Prior to the connection between host and client, both parties generate *temporary* public and private keys
      - But once the public keys have been exchanged, **symmetric keys** are generated using the ***Difiie Hellman Key Exchange***
        - Allows the computer to use a little bit of its own private data with public data from the other system to generate an identical secret session key in private 
+3) Hashing
+   - As a preface: **one way hash functions** are never meant to decrypt
+   - Using hashes, messages between client and host can be verified for authenticity to ensure that no third party intercepted and modified the message
+   - **Hash-Based Message Authentication Codes (HMAC)**
+     - The hash is generated from a combination of the symmetric key, the packet sequence number, and whatever data is inside the message
+     - The MAC is sent outside the symmetrically encrypted area to the host 
+   - The MAC is received by the host, but it is complete nonsense. The host has the symmetric key and the packet sequence number from the MAC, and also has the message contents via the symmetric encypted pipeline. So the host can create its own hash to make sure it matches exactly with the MAC sent by the client. If the hashes do not match, it means the message was modified somehow. 
+
+### An overview of SSH Session
+1) Secret keys are exchanged between the client and the host via asymmetric encryption 
+2) Communication is then done via symmetric encryption
+3) Once the connection is established, the server sends to the client a "challenge" for authorization
+4) The client decrypts the "challenge" and the session begins
  
