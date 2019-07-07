@@ -66,7 +66,32 @@ It is a way to hide/obscure/jumble data, making it impossible for a third party 
 
 ### An overview of SSH Session
 1) Secret keys are exchanged between the client and the host via asymmetric encryption 
-2) Communication is then done via symmetric encryption
+2) Generate a symmetric key
 3) Once the connection is established, the server sends to the client a "challenge" for authorization
-4) The client decrypts the "challenge" and the session begins
- 
+4) The client decrypts the "challenge" and the session begins using symmetric key encryption
+
+### Passwords vs RSA 
+  - Even after all of this encryption, when you initially SSH, you will be prompted or a password in order to prove you are you (so no one else randomly SSHs in)
+ - You can generate RSA public/private keys to for identify specific computers rather than having to use a password on those computers
+ - **How do you generate an RSA public/private key pair**
+   - In `~/.ssh` run `ssh-keygen`
+     - optional `-C` command adds comment
+       - `ssh-keygen -C "comment"`
+   - follow the prompts - each RSA key gets its own file, so the prompted file path will be the name of the file to store the key
+   - Entering a passphrase for the key is optional
+   - `[file_name].pub` is the public key
+   - `[file_name]` is the private key -- DO NOT SHARE. Keep it on the computer. 
+   - **How do you share the public key?**
+     - `pbcopy < ~/.ssh/[file_name].pub`
+       - copies the public key to the clipboard
+     - ssh into the host
+       - if not already there, make `.ssh` directory
+       - check with how the host handles ssh keys, but typically should write the copied public key into `.ssh/authorized_key` which will show up like this in the file:
+         - `ssh-rsa [public-key]`
+   - On your client, you may need to add the private key to you ssh-agent (you know you will need to do this if you get `permissioned denied` when ssh-ing even if completed the above steps)
+     - On the client:
+       - `ssh-add [path_to_private_key]`
+   - You no longer need a password to connect to the host!
+
+
+You can also ssh from one computer to another to another, etc., tunneling yourself all the way to the final computer through other computers. 
