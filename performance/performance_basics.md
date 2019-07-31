@@ -49,4 +49,6 @@ There are **3 areas of improvement**:
       * **use media queries**
       * the browser downloads only what it needs, so if a certain image is only visible at a certain screen size, only then will the browser download it. Otherwise, the image is not fetched
     * use CDNs like imigx
+      * imigx optimizes everything for you
     * remove image metadata 
+      * verexif.com
