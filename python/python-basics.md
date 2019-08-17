@@ -5,13 +5,22 @@
 * Floating point : float
 * Strings : str
 * Lists : list
+  * Can store mixed object types
+  * ordered sequence of elements
 * Dictionaries : dict
+  * unordered
+  * can't be sorted
 * Tuples : tup
   * Ordered, immutable sequence of heterogenous objects (Wrapped with parenthesis)
 * Sets : set
   * Unordered collection of unique objects 
 * Booleans : bool
   * True or False (capitalized)
+* NoneType
+  * A none object
+  * Common return value for functions that don't return anything
+  * Can instantiate variables this way
+    * `a = None`
 
 
 **How is slicing represented?**
@@ -100,5 +109,64 @@ f"hello, my name is {name}"
 "%d %d" % (1, 2)
 # 1 2
 
-
 ```
+
+**Lists**
+
+* In place sort with `.sort()` (doesn't return new list but sorts original list)
+* `.reverse()` is also in-place
+* `.pop()` returns the item at the end of the list and mutates the original list
+  * `.pop()` defaults to last item (i.e. `.pop(-1)`) but you can pop any index
+
+**Dictionaries**
+
+* Wrap key in quotes if a string, but can also have key as an int
+* Unordered, can't be sorted 
+* `d.keys()` returns the list of keys
+* `d.values()` returns the list of values
+* `d.items()` returns each pair wrapped in parenthesis (as a list of tuples)
+
+**Tuples**
+* Count the number of times a value occurs: `.count()`, example: `('a', 'a', 'b').count('a') # returns 2`
+* `.index()` returns first index of item passed in occurs
+* Immutable and ordered
+* Only two methods `index` and `count`
+  * Can concatenate by adding tuples together
+```Python
+tuple = (1,2)
+new_tuple = (1,2) + (3,) # make sure to include the comma
+# new tuple (1,2,3)
+```
+
+**Sets**
+* represented with brackets like dictionary, but no key-value pairing
+* unordered and unique
+* Add to set with `.add()` and it will only add if its unique
+* If converting a list to a set, it will remove repeated elements
+* Create or convert something to a set with `set()`
+* Can convert strings to a set
+
+
+### Input/Output
+* Open a files with `open(path/to/file)`
+* `.read()` outputs file as a single string (with `\n` representing new lines)
+  * A read occurs one at a time, it's a cursor scanning the file and ending at the end
+  * So if you attempt to read again, it won't output anything because cursor is at the end of the file
+  * Use `.seek(0)` to reset cursor at the beginning before reading again
+* `.readLines()` will separate each line of the file into its own element of a list (the `\n` still persists though)
+* When open file, make sure to close it with `.close()` on the file saved as a variable (i.e. `myFile = open(path_to_file.txt)` then `myFile.close()`)
+
+Another way to open and close:
+```Python
+with open("file.txt") as my_file:
+  contents = my_file.read()
+
+contents
+# will print out contents as a single string
+# Don't need to manually close the file
+```
+`open` defaults to `mode='r'`. To write to the file, need to say `open("file.txt", mode='w')`
+* `w` overwrites files (or create new file if passed in file doesn't exist)
+* `a` appends more lines to the end of a file
+* `r+` is reading and writing
+* `w+` is writing and reading (overwrites existing files or creates a new file)
