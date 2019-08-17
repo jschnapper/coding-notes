@@ -170,3 +170,7 @@ contents
 * `a` appends more lines to the end of a file
 * `r+` is reading and writing
 * `w+` is writing and reading (overwrites existing files or creates a new file)
+
+**Logical Operators**
+
+Python logical operators are `and`, `or`, `not`
